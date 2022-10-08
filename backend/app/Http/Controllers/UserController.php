@@ -94,6 +94,23 @@ class UserController extends Controller
         ]);
     }
 
+    public function getStudents(Request $request){
+        $user = User::where('user_type',3)->get();
+        return response()->json([
+            "status" => "0",
+            "message" => $user
+        ]);
+    }
+
+    public function searchStudents(Request $request){
+        if(!$request['search']) return $this->getStudents($request);
+        $user = User::where('user_type',3)->where('name', 'like', '%' . $request['search'] . '%')->get();
+        return response()->json([
+            "status" => "0",
+            "message" => $user
+        ]);
+    }
+
     public function addCourse(Request $request){
         
         if(count(Course::where('name',$request['name'])->get())){

@@ -121,7 +121,7 @@ class UserController extends Controller
 
     public function enrollStudent(Request $request){
         
-        if(!count(Course::where('_id',$request['id'])->get())){
+        if(!count(Course::where('_id',$request['course_id'])->get())){
             return response()->json([
                 "status" => "0",
                 "message" => "Course does not exist!"
@@ -137,12 +137,29 @@ class UserController extends Controller
 
         Enroll::create([
             'student_id' => $request['student_id'],
-            'course_id' => $request['id'],
+            'course_id' => $request['course_id'],
             'created_at' => time()
         ]);
         return response()->json([
             "status" => "1",
             "message" => "Enrolled"
+        ]);
+    }
+
+    public function unEnrollStudent(Request $request){
+        $enroll = Enroll::where('course_id',$request['course_id'])->where('student_id',$request['student_id'])->first();
+
+        if(!$enroll){
+            return response()->json([
+                "status" => "0",
+                "message" => "Enrollment does not exist!"
+            ]);
+        }
+
+        $enroll->delete();
+        return response()->json([
+            "status" => "1",
+            "message" => "deleted"
         ]);
     }
 }

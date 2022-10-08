@@ -12,7 +12,7 @@ use App\Models\Enroll;
 use Auth;
 use Validator;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     public function register(Request $request){
 
@@ -87,6 +87,7 @@ class UserController extends Controller
 
     public function searchInstructors(Request $request){
         if(!$request['search']) return $this->getInstructors($request);
+        
         $user = User::where('user_type',2)->where('name', 'like', '%' . $request['search'] . '%')->get();
         return response()->json([
             "status" => "0",
@@ -103,7 +104,9 @@ class UserController extends Controller
     }
 
     public function searchStudents(Request $request){
+
         if(!$request['search']) return $this->getStudents($request);
+
         $user = User::where('user_type',3)->where('name', 'like', '%' . $request['search'] . '%')->get();
         return response()->json([
             "status" => "0",

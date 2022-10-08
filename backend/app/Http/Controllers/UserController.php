@@ -88,4 +88,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function deleteCourse(Request $request){
+        $course = Course::where('name',$request['name'])->first(); 
+        if($course){
+            $course->delete();
+            return response()->json([
+                "status" => "1",
+                "message" => "Deleted!"
+            ]);
+        }
+        return response()->json([
+            "status" => "0",
+            "message" => "Course does not exist!"
+        ]);
+    }
+
 }

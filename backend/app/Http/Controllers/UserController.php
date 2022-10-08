@@ -84,7 +84,15 @@ class UserController extends Controller
             "message" => $user
         ]);
     }
-    
+
+    public function searchInstructors(Request $request){
+        if(!$request['search']) return $this->getInstructors($request);
+        $user = User::where('user_type',2)->where('name', 'like', '%' . $request['search'] . '%')->get();
+        return response()->json([
+            "status" => "0",
+            "message" => $user
+        ]);
+    }
 
     public function addCourse(Request $request){
         

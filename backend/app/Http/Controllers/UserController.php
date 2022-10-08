@@ -61,6 +61,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function deleteUser(Request $request){
+        $user = User::where('_id',$request['id'])->where('user_type',"!=",1)->first(); 
+        if($user){
+            $user->delete();
+            return response()->json([
+                "status" => "1",
+                "message" => "Deleted!"
+            ]);
+        }
+        return response()->json([
+            "status" => "0",
+            "message" => "User does not exist!"
+        ]);
+    }
+
     public function addCourse(Request $request){
         
         if(count(Course::where('name',$request['name'])->get())){
@@ -70,7 +85,7 @@ class UserController extends Controller
             ]);
         }
 
-        if(count(User::where('_id',$request['instructor_id'])->where('type',2)->get())){
+        if(count(User::where('_id',$request['instructor_id'])->where('user_type',2)->get())){
             return response()->json([
                 "status" => "0",
                 "message" => "Instructor does not exist!"

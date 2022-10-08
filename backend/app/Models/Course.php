@@ -12,8 +12,8 @@ class Course extends Model
     protected $collection = 'courses';
 
     protected $fillable = [
-        'id',
         'name',
         'instructor_id',
+        'created_at',
     ];
 }

@@ -13,9 +13,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('me', [AuthController::class, 'me']);
 });
 
-
-Route::group(["middleware" => "JWT"], function(){
-    Route::post('favorite', [UserController::class, 'addOrRemoveFavorite']);
-    Route::post('register', [UserController::class, 'register']);
-}); 
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(["middleware" => "JWT"], function(){
+        Route::post('register', [UserController::class, 'register']);
+        Route::post('add-course', [UserController::class, 'addCourse']);
+        Route::post('delete-course', [UserController::class, 'deleteCourse']);
+    }); 
+});
 

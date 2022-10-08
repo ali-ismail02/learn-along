@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\UserType;
+use App\Models\Course;
 use Auth;
 use Validator;
 
@@ -57,6 +58,33 @@ class UserController extends Controller
         return response()->json([
             "status" => "1",
             "message" => "Registered"
+        ]);
+    }
+
+    public function addCourse(Request $request){
+        
+        if(count(Course::where('name',$request['name'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course already exists!"
+            ]);
+        }
+
+        if(count(User::where('_id',$request['instructor_id'])->where('type',2)->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Instructor does not exist!"
+            ]);
+        }
+
+        Course::create([
+            'name' => $request['name'],
+            'instructor_id' => $request['instructor_id'],
+            'created_at' => time()
+        ]);
+        return response()->json([
+            "status" => "1",
+            "message" => "Added"
         ]);
     }
 

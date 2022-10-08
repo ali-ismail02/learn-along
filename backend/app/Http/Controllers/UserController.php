@@ -6,19 +6,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Models\Favorite;
-use App\Models\Block;
-use App\Models\Message;
-use App\Models\Chat;
+use App\Models\UserType;
+use Auth;
+use Validator;
 
 class UserController extends Controller
 {
-    public function signUp(Request $request){
+    public function register(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'Email'=>'required|string|email'
+        ]);
+
+
+        if(!$validator){
+            return response()->json([
+                "status" => "0",
+                "message" => $validator
+            ]);
+        }
         
         if(count(User::where('email',$request['email'])->get())){
             return response()->json([
                 "status" => "0",
-                "message" => $request['email']
+                "message" => "Email taken!"
             ]);
         }
         
@@ -35,17 +46,15 @@ class UserController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request->password),
             'gender' => $request['gender'],
-            'bio' => $request['bio'],
-            'pref' => $request['pref'],
             'image' =>  $images_to_save,
-            'location' => $request['location'],
             'dob' => $dob,
+            "user_type"=>$request['type'],
             'created_at' => time()
         ]);
         file_put_contents($file, $data);
         return response()->json([
             "status" => "1",
-            "message" => $file
+            "message" => "Registered"
         ]);
     }
 

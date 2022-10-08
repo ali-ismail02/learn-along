@@ -6,14 +6,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController; 
 
 
-Route::group(['middleware' => 'auth:api'], function ($router) {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::post('signUp', [UserController::class, 'signUp']);
+Route::post('register', [UserController::class, 'register']);
 
 Route::group(["middleware" => "JWT"], function(){
     Route::post('favorite', [UserController::class, 'addOrRemoveFavorite']);

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Jenssegers\Mongodb\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -22,8 +22,8 @@ class User extends Authenticatable implements JWTSubject
         'dob',
         'gender',
         'image',
-        'location',
         'user_type',
+        "created_at",
     ];
     protected $hidden = [
         'password',

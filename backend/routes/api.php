@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('delete-user', [UserController::class, 'deleteUser']);
         Route::post('add-course', [UserController::class, 'addCourse']);
         Route::post('delete-course', [UserController::class, 'deleteCourse']);
+        Route::post('enroll', [UserController::class, 'enrollStudent']);
     }); 
 });
 

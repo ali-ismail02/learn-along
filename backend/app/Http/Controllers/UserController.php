@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\UserType;
 use App\Models\Course;
+use App\Models\Enroll;
 use Auth;
 use Validator;
 
@@ -85,7 +86,7 @@ class UserController extends Controller
             ]);
         }
 
-        if(count(User::where('_id',$request['instructor_id'])->where('user_type',2)->get())){
+        if(!count(User::where('_id',$request['instructor_id'])->where('user_type',2)->get())){
             return response()->json([
                 "status" => "0",
                 "message" => "Instructor does not exist!"
@@ -118,4 +119,30 @@ class UserController extends Controller
         ]);
     }
 
+    public function enrollStudent(Request $request){
+        
+        if(!count(Course::where('_id',$request['id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+
+        if(!count(User::where('_id',$request['student_id'])->where('user_type',3)->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Student does not exist!"
+            ]);
+        }
+
+        Enroll::create([
+            'student_id' => $request['student_id'],
+            'course_id' => $request['id'],
+            'created_at' => time()
+        ]);
+        return response()->json([
+            "status" => "1",
+            "message" => "Enrolled"
+        ]);
+    }
 }

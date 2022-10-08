@@ -14,5 +14,6 @@ class Enroll extends Model
     protected $fillable = [
         'student_id',
         'course_id',
+        'created_at',
     ];
 }

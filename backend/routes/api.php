@@ -17,6 +17,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(["middleware" => "JWT"], function(){
         Route::post('register', [UserController::class, 'register']);
         Route::post('delete-user', [UserController::class, 'deleteUser']);
+        Route::post('instructors', [UserController::class, 'getInstructors']);
         Route::post('add-course', [UserController::class, 'addCourse']);
         Route::post('delete-course', [UserController::class, 'deleteCourse']);
         Route::post('enroll', [UserController::class, 'enrollStudent']);

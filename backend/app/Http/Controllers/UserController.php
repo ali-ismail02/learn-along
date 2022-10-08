@@ -77,6 +77,15 @@ class UserController extends Controller
         ]);
     }
 
+    public function getInstructors(Request $request){
+        $user = User::where('user_type',2)->get();
+        return response()->json([
+            "status" => "0",
+            "message" => $user
+        ]);
+    }
+    
+
     public function addCourse(Request $request){
         
         if(count(Course::where('name',$request['name'])->get())){

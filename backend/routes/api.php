@@ -13,9 +13,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::post('register', [UserController::class, 'register']);
 
 Route::group(["middleware" => "JWT"], function(){
     Route::post('favorite', [UserController::class, 'addOrRemoveFavorite']);
+    Route::post('register', [UserController::class, 'register']);
 }); 
 

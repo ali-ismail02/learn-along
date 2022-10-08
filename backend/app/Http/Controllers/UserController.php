@@ -32,6 +32,8 @@ class UserController extends Controller
                 "message" => "Email taken!"
             ]);
         }
+
+        $type_id = UserType::where('type',$request['type'])->first();
         
         $img = $request['image'];
         $img = str_replace('data:image/png;base64,', '', $img);
@@ -48,7 +50,7 @@ class UserController extends Controller
             'gender' => $request['gender'],
             'image' =>  $images_to_save,
             'dob' => $dob,
-            "user_type"=>$request['type'],
+            "user_type"=> $type_id['_id'],
             'created_at' => time()
         ]);
         file_put_contents($file, $data);

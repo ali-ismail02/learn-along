@@ -160,6 +160,16 @@ class InstructorController extends Controller
         ]);
     }
 
+    public function searchAssignments(Request $request){
+
+        if(!$request['search']) return $this->getAssignments($request);
+
+        return response()->json([
+            "status" => "0",
+            "message" => Assignment::where('title', 'like', '%' . $request['search'] . '%')->get()
+        ]);
+    }
+
     public function addAnnouncment(Request $request){
 
         if(!count(Course::where('_id',$request['course_id'])->get())){

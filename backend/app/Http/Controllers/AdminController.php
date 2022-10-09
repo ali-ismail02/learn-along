@@ -94,7 +94,7 @@ class AdminController extends Controller
             "message" => $user
         ]);
     }
-
+ 
     public function getStudents(Request $request){
         $user = User::where('user_type',3)->get();
         return response()->json([

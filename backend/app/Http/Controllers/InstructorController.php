@@ -145,6 +145,21 @@ class InstructorController extends Controller
         ]);
     }
 
+    public function getAssignments(Request $request){
+
+        if(!count(Course::where('_id',$request['course_id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+
+        return response()->json([
+            "status" => "1",
+            "message" => Assignment::where('course_id',$request['course_id'])->get()
+        ]);
+    }
+
     public function addAnnouncment(Request $request){
 
         if(!count(Course::where('_id',$request['course_id'])->get())){

@@ -196,4 +196,14 @@ class InstructorController extends Controller
             "message" => Announcment::where('course_id',$request['course_id'])->get()
         ]);
     }
+
+    public function searchAnnouncments(Request $request){
+
+        if(!$request['search']) return $this->getAnnouncments($request);
+
+        return response()->json([
+            "status" => "0",
+            "message" => Announcment::where('title', 'like', '%' . $request['search'] . '%')->get()
+        ]);
+    }
 }

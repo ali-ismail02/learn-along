@@ -132,12 +132,50 @@ class AdminController extends Controller
 
         Course::create([
             'name' => $request['name'],
-            'instructor_id' => $request['instructor_id'],
+            'instructor_id' => null,
             'created_at' => time()
         ]);
         return response()->json([
             "status" => "1",
             "message" => "Added"
+        ]);
+    }
+
+    public function assign(Request $request){
+        $course = Course::where('_id',$request['course_id'])->first();
+        if(!$course){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+
+        if(!count(User::where('_id',$request['instructor_id'])->where('user_type',2)->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Instructor does not exist!"
+            ]);
+        }
+
+        $course->update(['instructor_id' => $request['instructor_id']]);
+        return response()->json([
+            "status" => "1",
+            "message" => "Assigned"
+        ]);
+    }
+
+    public function unAssign(Request $request){
+        $course = Course::where('_id',$request['course_id'])->first();
+        if(!$course){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+        $course->update(['instructor_id' => null]);
+        return response()->json([
+            "status" => "1",
+            "message" => "Unassigned"
         ]);
     }
 

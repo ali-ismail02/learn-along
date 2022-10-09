@@ -22,6 +22,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('students', [AdminController::class, 'getStudents']);
         Route::post('search-students', [AdminController::class, 'searchStudents']);
         Route::post('add-course', [AdminController::class, 'addCourse']);
+        Route::post('assign', [AdminController::class, 'assign']);
+        Route::post('unassign', [AdminController::class, 'unAssign']);
         Route::post('delete-course', [AdminController::class, 'deleteCourse']);
         Route::post('enroll', [AdminController::class, 'enrollStudent']);
         Route::post('un-enroll', [AdminController::class, 'unEnrollStudent']);

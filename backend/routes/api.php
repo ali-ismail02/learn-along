@@ -36,5 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'instructor'], function () {
     Route::group(['middleware' => 'JWTInstructor'], function () {
         Route::post('register', [InstructorController::class, 'register']);
+        Route::post('enroll', [InstructorController::class, 'enrollStudent']);
+        Route::post('un-enroll', [InstructorController::class, 'unEnrollStudent']);
     });
 });

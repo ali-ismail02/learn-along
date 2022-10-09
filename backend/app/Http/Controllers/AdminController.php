@@ -14,6 +14,9 @@ use Validator;
 
 class AdminController extends Controller
 {
+
+    // Adding/Deleting users functions-------------------------------------------------------------------------
+
     public function register(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -77,6 +80,9 @@ class AdminController extends Controller
         ]);
     }
 
+    // getting/searching users functions-------------------------------------------------------------------------
+
+
     public function getInstructors(Request $request){
         $user = User::where('user_type',2)->get();
         return response()->json([
@@ -114,6 +120,8 @@ class AdminController extends Controller
         ]);
     }
 
+    // Courses related functions-------------------------------------------------------------------------
+
     public function addCourse(Request $request){
         
         if(count(Course::where('name',$request['name'])->get())){
@@ -140,6 +148,42 @@ class AdminController extends Controller
             "message" => "Added"
         ]);
     }
+
+    public function getCourses(Request $request){
+        $course = Course::all();
+        return response()->json([
+            "status" => "0",
+            "message" => $course
+        ]);
+    }
+
+    public function searchCourses(Request $request){
+
+        if(!$request['search']) return $this->getCourses($request);
+
+        $course = Course::where('name', 'like', '%' . $request['search'] . '%')->get();
+        return response()->json([
+            "status" => "0",
+            "message" => $course
+        ]);
+    }
+
+    public function deleteCourse(Request $request){
+        $course = Course::where('name',$request['name'])->first(); 
+        if($course){
+            $course->delete();
+            return response()->json([
+                "status" => "1",
+                "message" => "Deleted!"
+            ]);
+        }
+        return response()->json([
+            "status" => "0",
+            "message" => "Course does not exist!"
+        ]);
+    }
+    
+    // Assigning/Unassigning intructors functions-------------------------------------------------------------------------
 
     public function assign(Request $request){
         $course = Course::where('_id',$request['course_id'])->first();
@@ -179,20 +223,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function deleteCourse(Request $request){
-        $course = Course::where('name',$request['name'])->first(); 
-        if($course){
-            $course->delete();
-            return response()->json([
-                "status" => "1",
-                "message" => "Deleted!"
-            ]);
-        }
-        return response()->json([
-            "status" => "0",
-            "message" => "Course does not exist!"
-        ]);
-    }
+    // Enrolling/Unenrolling students functions-------------------------------------------------------------------------
 
     public function enrollStudent(Request $request){
         

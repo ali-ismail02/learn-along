@@ -127,4 +127,24 @@ class InstructorController extends Controller
             "message" => "Added"
         ]);
     }
+
+    public function addAnnouncment(Request $request){
+
+        if(!count(Course::where('_id',$request['course_id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+
+        Announcment::create(['course_id' => $request['course_id'],
+                            'title' => $request['title'],
+                            'description' => $request['description'],
+                            'created_at' => time()]);
+
+        return response()->json([
+            "status" => "1",
+            "message" => "Added"
+        ]);
+    }
 }

@@ -164,4 +164,21 @@ class InstructorController extends Controller
             "message" => "Added"
         ]);
     }
+
+    public function deleteAnnouncment(Request $request){
+
+        $announcment = Announcment::where('_id', $request['announcment_id'])->first();
+        if(!$announcment) {
+            return response()->json([
+                "status" => "0",
+                "message" => "Assignment does not exist!"
+            ]);
+        }
+        $announcment->delete();
+
+        return response()->json([
+            "status" => "1",
+            "message" => "Deleted"
+        ]);
+    }
 }

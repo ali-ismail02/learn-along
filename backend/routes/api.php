@@ -41,5 +41,6 @@ Route::group(['prefix' => 'instructor'], function () {
         Route::post('add-assignment', [InstructorController::class, 'addAssignment']);
         Route::post('delete-assignment', [InstructorController::class, 'deleteAssignment']);
         Route::post('add-announcment', [InstructorController::class, 'addAnnouncment']);
+        Route::post('delete-announcment', [InstructorController::class, 'deleteAnnouncment']);
     });
 });

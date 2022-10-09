@@ -252,6 +252,5 @@ class InstructorController extends Controller
             "message" => $submittions
         ]);
     }
-
     
 }

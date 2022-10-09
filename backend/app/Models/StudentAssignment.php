@@ -14,7 +14,7 @@ class StudentAssignment extends Model
 
     protected $fillable = [
         'student_id',
-        'course_id',
+        'assignment_id',
         'assignment',
     ];
 }

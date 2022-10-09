@@ -38,5 +38,6 @@ Route::group(['prefix' => 'instructor'], function () {
         Route::post('register', [InstructorController::class, 'register']);
         Route::post('enroll', [InstructorController::class, 'enrollStudent']);
         Route::post('un-enroll', [InstructorController::class, 'unEnrollStudent']);
+        Route::post('add-assignment', [InstructorController::class, 'addAssignment']);
     });
 });

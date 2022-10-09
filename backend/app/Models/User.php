@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
+use App\Models\UserType;
+use App\Models\Course;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -25,6 +27,16 @@ class User extends Authenticatable implements JWTSubject
         'user_type',
         "created_at",
     ];
+
+    public function courses()
+    {
+        return $this->embedsMany(Course::class);
+    }
+
+    public function userType(){
+        return $this->embedsOne(UserType::class);
+    }
+
     protected $hidden = [
         'password',
         'remember_token',

@@ -150,10 +150,15 @@ class AdminController extends Controller
     }
 
     public function getCourses(Request $request){
-        $course = Course::all();
+        $courses = Course::all();
+        foreach($courses as $course){
+            $ins = User::where('_id',$course['instructor_id'])->first();
+            $course['instructor'] = $ins;
+        }
+        
         return response()->json([
             "status" => "0",
-            "message" => $course
+            "message" => $courses
         ]);
     }
 
@@ -161,10 +166,14 @@ class AdminController extends Controller
 
         if(!$request['search']) return $this->getCourses($request);
 
-        $course = Course::where('name', 'like', '%' . $request['search'] . '%')->get();
+        $courses = Course::where('name', 'like', '%' . $request['search'] . '%')->get();
+        foreach($courses as $course){
+            $ins = User::where('_id',$course['instructor_id'])->first();
+            $course['instructor'] = $ins->name;
+        }
         return response()->json([
             "status" => "0",
-            "message" => $course
+            "message" => $courses
         ]);
     }
 

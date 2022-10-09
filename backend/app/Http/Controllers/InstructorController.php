@@ -181,4 +181,19 @@ class InstructorController extends Controller
             "message" => "Deleted"
         ]);
     }
+
+    public function getAnnouncments(Request $request){
+
+        if(!count(Course::where('_id',$request['course_id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Course does not exist!"
+            ]);
+        }
+
+        return response()->json([
+            "status" => "1",
+            "message" => Announcment::where('course_id',$request['course_id'])->get()
+        ]);
+    }
 }

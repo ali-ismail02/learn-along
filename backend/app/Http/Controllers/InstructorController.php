@@ -11,7 +11,7 @@ use App\Models\Course;
 use App\Models\Enroll;
 use App\Models\Assignment;
 use App\Models\Announcment;
-use App\Models\StudentAnnouncment;
+use App\Models\StudentAssignment;
 use Auth;
 use Validator;
 
@@ -231,4 +231,27 @@ class InstructorController extends Controller
             "message" => Announcment::where('title', 'like', '%' . $request['search'] . '%')->get()
         ]);
     }
+
+    public function getSubmittedAssignments(Request $request){
+
+        if(!count(Assignment::where('_id',$request['assignment_id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Assignment does not exist!"
+            ]);
+        }
+
+        $submittions = StudentAssignment::where('assignment_id',$request['assignment_id'])->get();
+
+        foreach($submittions as $sub){
+            $sub['student'] = User::where("_id",$sub['student_id'])->first();
+        }
+
+        return response()->json([
+            "status" => "1",
+            "message" => $submittions
+        ]);
+    }
+
+    
 }

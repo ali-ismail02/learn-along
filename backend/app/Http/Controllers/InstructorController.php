@@ -128,6 +128,23 @@ class InstructorController extends Controller
         ]);
     }
 
+    public function deleteAssignment(Request $request){
+
+        $assignment = Assignment::where('_id', $request['assignment_id'])->first();
+        if(!$assignment) {
+            return response()->json([
+                "status" => "0",
+                "message" => "Assignment does not exist!"
+            ]);
+        }
+        $assignment->delete();
+
+        return response()->json([
+            "status" => "1",
+            "message" => "Deleted"
+        ]);
+    }
+
     public function addAnnouncment(Request $request){
 
         if(!count(Course::where('_id',$request['course_id'])->get())){

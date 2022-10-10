@@ -4,13 +4,15 @@ import Button from './Button';
 import { fetch } from '../hooks/fetch';
 
 
+
 const onClick = async () => {
     const data = {
         "email": document.getElementById("email").value,
-        "Password": document.getElementById("password").value
+        "password": document.getElementById("password").value
     }
     const result = await fetch("auth/login",data)
-    console.log(result)
+    localStorage.setItem('jwt',result.data.token_type + " " + result.data.access_token)
+
 }
 
 const LoginForm = () => {

@@ -1,7 +1,7 @@
 const Button = ({ text, onClick, color }) => {
     return (
       <button className="btn" onClick={onClick}>
-        Sign-in
+        {text}
       </button>
     );
   };

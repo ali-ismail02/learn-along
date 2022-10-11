@@ -152,12 +152,14 @@ class AdminController extends Controller
     public function getCourses(Request $request){
         $courses = Course::all();
         foreach($courses as $course){
-            $ins = User::where('_id',$course['instructor_id'])->first();
-            $course['instructor'] = $ins;
+            if($course['instructor_id']){
+                $ins = User::where('_id',$course['instructor_id'])->first();
+                $course['instructor'] = $ins['name'];
+            }else $course['instructor'] = 'null';
         }
         
         return response()->json([
-            "status" => "0",
+            "status" => "1",
             "message" => $courses
         ]);
     }
@@ -247,6 +249,12 @@ class AdminController extends Controller
             return response()->json([
                 "status" => "0",
                 "message" => "Student does not exist!"
+            ]);
+        }
+        if(count(Enroll::where("student_id",$request['student_id'])->where('course_id',$request['course_id'])->get())){
+            return response()->json([
+                "status" => "0",
+                "message" => "Already Enrolled!"
             ]);
         }
 

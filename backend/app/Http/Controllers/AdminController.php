@@ -131,13 +131,6 @@ class AdminController extends Controller
             ]);
         }
 
-        if(!count(User::where('_id',$request['instructor_id'])->where('user_type',2)->get())){
-            return response()->json([
-                "status" => "0",
-                "message" => "Instructor does not exist!"
-            ]);
-        }
-
         Course::create([
             'name' => $request['name'],
             'instructor_id' => null,

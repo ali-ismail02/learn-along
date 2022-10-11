@@ -16,6 +16,9 @@ const AdminNavbar = () => {
                     <li>
                         <Link to="/admin/add-user">Add User</Link>
                     </li>
+                    <li>
+                        <Link to="/admin/add-course">Add Course</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

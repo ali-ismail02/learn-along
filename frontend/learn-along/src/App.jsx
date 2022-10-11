@@ -6,6 +6,7 @@ import StudentsTable from "./components/StudentsTable";
 import Table from "./components/Table";
 import './App.css';
 import AddUser from "./components/AddUser";
+import AddCourse from "./components/AddCourse";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/admin/courses" element={<Table url={"admin/courses"} deleteUrl="admin/delete-course" headers={["name","instructor","Functions"]}/>}/>
           <Route path="/admin/courses" element={<Table url={"admin/courses"} deleteUrl="admin/delete-course" headers={["name","instructor","Functions"]}/>}/>
           <Route path="/admin/add-user" element={<AddUser/>}/>
+          <Route path="/admin/add-course" element={<AddCourse/>}/>
         </Routes>
     </Router>
   );

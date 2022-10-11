@@ -46,8 +46,8 @@ const Table = (props) => {
                                 return (<td key={key}>{value}</td>)
                             })}
                             <td>
-                            <Button text={"Delete"} onClick={() => {deleteUser(user._id)}} />
                             {url == "admin/courses" && <CourseFucntions course_id={user._id} datas={datas} setData={setData}/>}
+                            <Button text={"Delete"} onClick={() => {deleteUser(user._id)}} />
                             </td></tr>
                     )
                 })}

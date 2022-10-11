@@ -102,13 +102,19 @@
   padding: 8px;
 }
 
-.display-info tr:last-child,
-.display-info th:last-child {
-  width: 50px;
+.display-info tr td:last-child,
+.display-info th td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-info select{
+  margin: 0 20px;
 }
 
 .display-info button {
-  margin: 0 auto;
+  margin: 0 20px;
 }
 
 .display-info tr:nth-child(even) {
@@ -163,3 +169,56 @@ nav .desktop-nav li a:hover {
   opacity: 1;
   color: #04AA6D;
 }
+
+/* Add user form */
+
+.add-form {
+  font-size: 23px;
+  background-color: white;
+  width: 35vw;
+  height: 50vh;
+  max-width: 1200px;
+  max-height: 800px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.add-form input {
+  color: black;
+  width:90%;
+  height: 11%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 9px;
+}
+input,
+input::placeholder {
+    font: 16px sans-serif;
+    color: #b3b3b3;
+}
+.add-form .radio {
+  height:20px;
+   width:20px; 
+   vertical-align: middle;
+   margin:10px;
+   margin-left: 0;
+}
+.add-form .radio-text{
+  font-size: 23px;
+}
+
+.add-form label {
+  margin-right: 10px;
+}
+
+.add-form > div {
+  
+  align-self: flex-start;
+  margin-left: 5%;
+}
+
